@@ -45,10 +45,17 @@ namespace Part_7_Forms
 
         private void btnSortNumbers_Click(object sender, EventArgs e)
         {
-            numbers.Sort();
-            lstNumbers.DataSource = null;
-            lstNumbers.DataSource = numbers;
-            lblStatus.Text = "Status: Numbers Sorted";
+            if (numbers.Count > 0)
+            {
+                numbers.Sort();
+                lstNumbers.DataSource = null;
+                lstNumbers.DataSource = numbers;
+                lblStatus.Text = "Status: Numbers Sorted Up";
+            }
+            else
+            {
+                lblStatus.Text = "Status: No Numbers Left";
+            }
 
         }
 
@@ -150,6 +157,27 @@ namespace Part_7_Forms
                 lblStatus.Text = "Status: Nothing Added";
             }
 
+        }
+
+        private void lblNumbers_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSortNumbersDown_Click(object sender, EventArgs e)
+        {
+            if (numbers.Count > 0)
+            {
+                numbers.Sort();
+                numbers.Reverse();
+                lstNumbers.DataSource = null;
+                lstNumbers.DataSource = numbers;
+                lblStatus.Text = "Status: Numbers Sorted Down";
+            }
+            else
+            {
+                lblStatus.Text = "Status: No Numbers Left";
+            }
         }
     }
 }
