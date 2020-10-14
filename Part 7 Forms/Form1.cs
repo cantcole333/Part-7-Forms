@@ -27,8 +27,8 @@ namespace Part_7_Forms
                 numbers.Add(generator.Next(100));
             lstNumbers.DataSource = numbers;
 
-            heroes.Add("Superman");
-            heroes.Add("Batman");
+            heroes.Add("SUPERMAN");
+            heroes.Add("BATMAN");
 
             lstHeroes.DataSource = heroes;
         }
@@ -68,8 +68,8 @@ namespace Part_7_Forms
         private void btnNewHeroes_Click(object sender, EventArgs e)
         {
             heroes.Clear();
-            heroes.Add("Superman");
-            heroes.Add("Batman");
+            heroes.Add("SUPERMAN");
+            heroes.Add("BATMAN");
             lstHeroes.DataSource = null;
             lstHeroes.DataSource = heroes;
             lblStatus.Text = "Status: New heroes Generated";
@@ -80,9 +80,9 @@ namespace Part_7_Forms
             if (lstNumbers.SelectedIndex >= 0)
             {
                 numbers.RemoveAt(lstNumbers.SelectedIndex);
-            lstNumbers.DataSource = null;
-            lstNumbers.DataSource = numbers;
-            lblStatus.Text = "Status: Number Removed";
+                lstNumbers.DataSource = null;
+                lstNumbers.DataSource = numbers;
+                lblStatus.Text = "Status: Number Removed";
             }
             else
             { 
@@ -94,23 +94,61 @@ namespace Part_7_Forms
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            while (numbers.Contains((Int32)lstNumbers.SelectedItem))
+            if (lstNumbers.SelectedItem != null)
             {
-                numbers.Remove((Int32)lstNumbers.SelectedItem);
-            }
-            lstNumbers.DataSource = null;
-            lstNumbers.DataSource = numbers;
-            lblStatus.Text = "Status: Removed Those Values";
+                while (numbers.Contains((Int32)lstNumbers.SelectedItem))
+                {
+                    numbers.Remove((Int32)lstNumbers.SelectedItem);
+
+                }
+                lstNumbers.DataSource = null;
+                lstNumbers.DataSource = numbers;
+                lblStatus.Text = "Status: Removed Those Values";
+            }            
+            else
+            {
+                lblStatus.Text = "Status: No Numbers Left";
+            } 
         }
 
         private void btnRemoveHero_Click(object sender, EventArgs e)
         {
-            heroes.Remove((string)lstHeroes.SelectedItem);
-
+            if (heroes.Contains(txtRemoveHero.Text.Trim().ToUpper()))
+            {
+                heroes.Remove(txtRemoveHero.Text.Trim().ToUpper());
+                txtRemoveHero.Clear();
+                lstHeroes.DataSource = null;
+                lstHeroes.DataSource = heroes;
+                lblStatus.Text = "Status: Removed Hero";
+            }
+            else
+            {
+                lblStatus.Text = "Status: Error, That is not in the list";
+            }
+            
         }
 
         private void btnAddHero_Click(object sender, EventArgs e)
         {
+            if (txtAddHero.Text != "")
+            {
+                if (!heroes.Contains(txtAddHero.Text.Trim().ToUpper()))
+                {
+                    heroes.Add(txtAddHero.Text.Trim().ToUpper());
+                    txtAddHero.Clear();
+                    lstHeroes.DataSource = null;
+                    lstHeroes.DataSource = heroes;
+                    lblStatus.Text = "Status: Added Hero";
+                }
+                else
+                {
+                    lblStatus.Text = "Status: Nothing Added";
+                }
+            }
+            else
+            {
+                lblStatus.Text = "Status: Nothing Added";
+            }
 
         }
     }
